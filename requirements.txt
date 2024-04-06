@@ -1,4 +1,5 @@
 streamlit
 transformers
-torch
+tensorflow
+sentencepiece
 tf-keras

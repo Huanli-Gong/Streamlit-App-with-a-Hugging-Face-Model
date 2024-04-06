@@ -1,87 +1,64 @@
-# us26_MiniProj9
+# Week 9 Mini-Project
+## Author
+Ziyu Shi
 
-URL to access the app - https://app-bveknc23yzqruvysv92ing.streamlit.app  
+## Requirements
+- Create a website using Streamlit
+- Connect to an open source LLM (Hugging Face)
+- Deploy model via Streamlit or other service (accessible via browser)
 
-### Working of the app
+## App Detail
+### Functionaliy
+My Streamlit App is able to translate sentences from Chinese into English by connecting to an open source LLM - `transformers`. An example has been provided for testing. After clicking the "translate" button, the translated content will appear under the text window.
 
-![alt text](screenshots/1.png)
+### Deployment URL
+My Streamlit App is deployed via Streamlit at https://zs148-ids721-week9-btkkfloe3a4qjpqtfgf6mn.streamlit.app/
 
-![alt text](screenshots/2.png)
-
-### Step 1: Install Necessary Libraries
-First, make sure you have Python and pip installed. Then install Streamlit and the Transformers library from Hugging Face:
-
-```bash
-pip install streamlit transformers
+## Project Steps
+### Install necessary packages
+Streamlit and transformers are necessary for this app. And the tensorflow and sentencepiece are required for this translation task.
+```
+sudo pip install streamlit transformers tensorflow sentencepiece
 ```
 
-### Step 2: Create the Streamlit Web Application
-Create a Python script `app.py` with the following code:
-
+### Create streamlit app content
+Create a python file to implement the task, here is my translation task:
 ```python
 import streamlit as st
 from transformers import pipeline
 
-# Load the language model
-model = pipeline("text-generation", model="openai-gpt")
+st.title('Translate Chinese to English')
 
-# Define Streamlit app
-def main():
-    st.title("Language Model Deployment with Streamlit")
-    text_input = st.text_area("Enter text to generate continuation:")
-    
-    if st.button("Generate"):
-        if text_input:
-            generated_text = model(text_input, max_length=50, do_sample=True)[0]['generated_text']
-            st.write("Generated Text:")
-            st.write(generated_text)
-        else:
-            st.warning("Please enter some text first.")
+translator = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en")
 
-if __name__ == "__main__":
-    main()
+text_to_translate = st.text_area("Please type input: (Example: 你好，很高兴认识你)", value='', height=250, max_chars=500)
+
+if st.button('Translate'):
+    if text_to_translate:
+        translation = translator(text_to_translate, max_length=400)[0]['translation_text']
+        st.write("Translated result:", translation)
+    else:
+        st.write("Please enter some text to translate.")
 ```
-
-### Step 3: Run Locally
-Save the `app.py` file and run it locally using the following command:
-
-```bash
-streamlit run app.py
+To test the app locally, run:
 ```
+sudo streamlit run streamlit_app.py
+```
+For different tasks with corresponding models, [Hugging face model repository](https://huggingface.co/models) is useful.
 
-### Step 4: Deployment
-You can deploy the Streamlit app using various services such as Heroku, Streamlit Sharing, AWS, or Azure. Here's a brief overview of deploying to Streamlit Sharing:
+### Deployment model via Streamlit
+Streamlit needs a `requirements.txt` to initialize the deployment environment. Add all the dependencies into the `requirements.txt`.
+Push the local repo onto the GitHub repo. Connect the GitHub repo from Streamlit account and deploy the model.
 
-1. **Install Streamlit Sharing CLI**: If you haven't installed it yet, run:
-   ```bash
-   pip install streamlit
-   ```
-   
-2. **Create a `requirements.txt` file**: You need to create a `requirements.txt` file that lists the dependencies of your app. You can generate this file using `pip freeze`:
-   ```bash
-   pip freeze > requirements.txt
-   ```
+## Screenshots
+### Run locally
+![image](/images/runLocally.png)
 
-3. **Create a `setup.sh` file**: Streamlit requires a `setup.sh` file to tell it how to run your app. Create a file named `setup.sh` with the following content:
-   ```bash
-   mkdir -p ~/.streamlit/
-   echo "\
-   [server]\n\
-   headless = true\n\
-   port = $PORT\n\
-   enableCORS = false\n\
-   \n\
-   " > ~/.streamlit/config.toml
-   ```
+### Test functionality locally
+![image](/images/testLocally.png)
 
-4. **Deploy using Streamlit Sharing CLI**: Navigate to your project directory in the terminal and run the following commands:
-   ```bash
-   streamlit login
-   streamlit deploy your-email@example.com
-   ```
-   Replace `your-email@example.com` with your Streamlit Sharing account email.
+### Deploy via Streamlit
+![image](/images/testDeploy.png)
 
-### Step 5: Accessing the Deployed App
-Once deployed, you'll receive a URL where your Streamlit app is accessible via a web browser.
-
-This setup will allow users to input text, which will then be passed to the language model for text generation. The generated text will be displayed back to the user on the website.
+### Error prompts if input is empty
+![image](/images/EmptyPrompt.png)
