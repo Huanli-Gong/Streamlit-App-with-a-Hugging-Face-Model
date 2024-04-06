@@ -16,7 +16,7 @@ pip install streamlit transformers
 ```
 
 ### Step 2: Create the Streamlit Web Application
-Create a Python script `streamlit_app.py` with the following code:
+Create a Python script `app.py` with the following code:
 
 ```python
 import streamlit as st
@@ -43,10 +43,10 @@ if __name__ == "__main__":
 ```
 
 ### Step 3: Run Locally
-Save the `streamlit_app.py` file and run it locally using the following command:
+Save the `app.py` file and run it locally using the following command:
 
 ```bash
-streamlit run streamlit_app.py
+streamlit run app.py
 ```
 
 ### Step 4: Deployment
@@ -59,7 +59,7 @@ You can deploy the Streamlit app using various services such as Heroku, Streamli
    
 2. **Create a `requirements.txt` file**: You need to create a `requirements.txt` file that lists the dependencies of your app. You can generate this file using `pip freeze`:
    ```bash
-   pip install -r requirements.txt
+   pip freeze > requirements.txt
    ```
 
 3. **Create a `setup.sh` file**: Streamlit requires a `setup.sh` file to tell it how to run your app. Create a file named `setup.sh` with the following content:

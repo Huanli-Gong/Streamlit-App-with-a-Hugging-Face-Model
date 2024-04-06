@@ -1,4 +1,1 @@
-streamlit 
-transformers
-torch
-tf-keras
+pip install streamlit transformers
