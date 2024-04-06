@@ -1,64 +1,31 @@
-# Week 9 Mini-Project
-## Author
-Ziyu Shi
+# Streamlit App with a Hugging Face Model
+This application demonstrates a simple web interface for generating text using the OpenAI GPT model. Built with Streamlit, it allows users to input a text prompt and generates continuations of the text based on the input.
 
-## Requirements
-- Create a website using Streamlit
-- Connect to an open source LLM (Hugging Face)
-- Deploy model via Streamlit or other service (accessible via browser)
-
-## App Detail
-### Functionaliy
-My Streamlit App is able to translate sentences from Chinese into English by connecting to an open source LLM - `transformers`. An example has been provided for testing. After clicking the "translate" button, the translated content will appear under the text window.
-
-### Deployment URL
-My Streamlit App is deployed via Streamlit at https://zs148-ids721-week9-btkkfloe3a4qjpqtfgf6mn.streamlit.app/
-
-## Project Steps
+## Project Setup
 ### Install necessary packages
-Streamlit and transformers are necessary for this app. And the tensorflow and sentencepiece are required for this translation task.
+Run the follow command to install the packages:
+```bash
+pip install -r requirements.txt
 ```
-sudo pip install streamlit transformers tensorflow sentencepiece
+### Implement Streamlit Web Application
+The detailed implementation is in `streamlit_app.py`, which can be accessed [here](./streamlit_app.py).
+
+![local](./images/local.png)
+
+### Test Locally
+Run the following command to test the application locally.
+```bash
+streamlit run streamlit_app.py
 ```
 
-### Create streamlit app content
-Create a python file to implement the task, here is my translation task:
-```python
-import streamlit as st
-from transformers import pipeline
+## Project Deployment
 
-st.title('Translate Chinese to English')
+1. Create an account and signin to https://streamlit.io/.
+2. Under https://share.streamlit.io/, create a new app **using existing repo**.
+3. Make sure the repo, branch, and application file are correct.
+4. Then deploy. You can access the logs while the app is being deployed.
+5. After the deployment is successful, the Streamlit application can be accessed using the URL.
+## Deployment URL
+>https://app-app-with-a-hugging-face-model-f4pvkcetwqvcg4dn7oqdwm.streamlit.app/
 
-translator = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en")
-
-text_to_translate = st.text_area("Please type input: (Example: 你好，很高兴认识你)", value='', height=250, max_chars=500)
-
-if st.button('Translate'):
-    if text_to_translate:
-        translation = translator(text_to_translate, max_length=400)[0]['translation_text']
-        st.write("Translated result:", translation)
-    else:
-        st.write("Please enter some text to translate.")
-```
-To test the app locally, run:
-```
-sudo streamlit run streamlit_app.py
-```
-For different tasks with corresponding models, [Hugging face model repository](https://huggingface.co/models) is useful.
-
-### Deployment model via Streamlit
-Streamlit needs a `requirements.txt` to initialize the deployment environment. Add all the dependencies into the `requirements.txt`.
-Push the local repo onto the GitHub repo. Connect the GitHub repo from Streamlit account and deploy the model.
-
-## Screenshots
-### Run locally
-![image](/images/runLocally.png)
-
-### Test functionality locally
-![image](/images/testLocally.png)
-
-### Deploy via Streamlit
-![image](/images/testDeploy.png)
-
-### Error prompts if input is empty
-![image](/images/EmptyPrompt.png)
+![streamlit](./images/streamlit.png)
