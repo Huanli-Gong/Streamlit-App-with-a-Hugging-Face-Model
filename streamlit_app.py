@@ -8,7 +8,7 @@ set_seed(42)
 
 if st.button("Generate"):
     if text_input:
-        for output in generator(text_input, truncation=True, max_length=30):
+        for output in generator(text_input, do_sample=True, max_length=30):
             st.write(output)
     else:
         st.warning("Please enter text first.")
