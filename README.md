@@ -26,6 +26,6 @@ streamlit run streamlit_app.py
 4. Then deploy. You can access the logs while the app is being deployed.
 5. After the deployment is successful, the Streamlit application can be accessed using the URL.
 ## Deployment URL
->https://app-app-with-a-hugging-face-model-f4pvkcetwqvcg4dn7oqdwm.streamlit.app/
+>https://app-app-with-a-hugging-face-model-wwh9kq7dk6kncykujbgvwj.streamlit.app/
 
 ![streamlit](./images/streamlit.png)
